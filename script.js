@@ -145,7 +145,10 @@ contactForm.addEventListener('submit', function(e) {
         .then(function(response) {
             console.log('SUCCESS!', response.status, response.text);
             alert('We will reply soon, ' + name + '! Thank you for reaching out.');
-
+            // Show the video after successful submission
+            document.getElementById('videoAd').style.display = 'block';
+            // Reset the form
+            contactForm.reset();
         }, function(error) {
             console.error('FAILED...', error);
             alert('Error sending message. Please try again later or contact me directly at er.amantharu@gmail.com.');
@@ -157,6 +160,22 @@ contactForm.addEventListener('submit', function(e) {
             submitBtn.textContent = 'Send Message';
         });
 });
+
+// Function to close the video
+function closeVideo() {
+    const video = document.getElementById('adVideo');
+    video.pause(); // Pause the video when closing
+    document.getElementById('videoAd').style.display = 'none';
+}
+
+// Function to toggle mute/unmute
+function toggleMute() {
+    const video = document.getElementById('adVideo');
+    const muteButton = document.getElementById('muteButton');
+    video.muted = !video.muted; // Toggle the muted state
+    muteButton.textContent = video.muted ? '🔇' : '🔊'; // Update the icon
+}
+
 // Animate Skill Bars
 const skillBars = document.querySelectorAll('.skill-progress');
 

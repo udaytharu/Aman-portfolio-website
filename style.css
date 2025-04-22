@@ -668,6 +668,63 @@ textarea.form-control {
     box-shadow: none;
 }
 
+/* Video Ad Styling */
+.video-ad-container {
+    position: relative;
+    max-width: 100%;
+    margin: 20px 0;
+}
+
+.video-ad {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.close-button:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.mute-button {
+    position: absolute;
+    top: 5px;
+    right: 35px; /* Position to the left of the close button */
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.mute-button:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
 /* Footer */
 footer {
     background-color: var(--secondary-color);
@@ -685,7 +742,7 @@ footer {
 
 footer p a {
     text-decoration: underline;
-    color: #3498db;;
+    color: #3498db;
     font-weight: 600;
     transition: color var(--animation-speed) ease;
 }
