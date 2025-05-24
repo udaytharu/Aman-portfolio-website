@@ -373,30 +373,20 @@ header.scrolled {
     font-size: 1.2rem;
 }
 
-.skill-item {
+.skill-card {
     margin-bottom: 1rem;
-}
-
-.skill-name {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-}
-
-.skill-bar {
-    height: 10px;
-    background: #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
     border-radius: 5px;
-    overflow: hidden;
+    background: white;
 }
 
-.skill-progress {
-    height: 100%;
-    background: var(--primary-color);
-    border-radius: 5px;
-    width: 0;
-    transition: width 1.5s ease;
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
+
+
 
 /* Interests Section */
 .interests {
