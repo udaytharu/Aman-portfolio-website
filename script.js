@@ -201,3 +201,12 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 
 observer.observe(skillsSection);
+
+// Admin Login Button: Redirect to adminlog/index.html
+const adminLoginBtn = document.querySelector('.nav-links .btn.btn-outline');
+if (adminLoginBtn) {
+  adminLoginBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = 'adminlog/index.html';
+  });
+}

@@ -1,0 +1,15 @@
+/* styles.css - themed for home page colors */
+
+body {
+    background: var(--light-color, #ecf0f1);
+    color: var(--dark-color, #2c3e50);
+}
+
+/* You can add unique login page overrides below if needed */
+
+.error {
+    color: var(--accent-color, #e74c3c);
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: bold;
+}
