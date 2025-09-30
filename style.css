@@ -366,24 +366,55 @@ header.scrolled {
 
 .skills {
     margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
 }
 
 .skills h4 {
-    margin-bottom: 1rem;
+    width: 100%;
     font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
 }
 
 .skill-card {
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    border-radius: 5px;
-    background: white;
+    width: 110px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+    margin-right: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    padding: 8px 0;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .skill-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(52,152,219,0.12);
+}
+
+.skill-card a {
+    width: 100%;
+    color: var(--secondary-color);
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0;
+    text-align: center;
+}
+
+.skill-card p {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 700;
 }
 
 /* Interests Section */
@@ -725,7 +756,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0rem;
 }
 
 footer p a {
@@ -927,103 +958,3 @@ footer p a {
     }
 }
 
-/* Admin Login Button Custom Style */
-.nav-links .btn.btn-outline {
-    padding: 0.5rem 1.2rem;
-    border: 2px solid var(--primary-color);
-    border-radius: 25px;
-    background: transparent;
-    color: var(--primary-color);
-    font-weight: 600;
-    transition: background 0.3s, color 0.3s;
-    margin-left: 1rem;
-}
-
-.nav-links .btn.btn-outline:hover {
-    background: var(--primary-color);
-    color: #fff;
-}
-
-/* Admin Login Modal Styles */
-#adminModal {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 2000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#adminModal .modal-overlay {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(44, 62, 80, 0.7);
-    z-index: 1;
-}
-#adminModal .modal-content {
-    position: relative;
-    z-index: 2;
-    background: #fff;
-    border-radius: 12px;
-    padding: 2rem 1.5rem;
-    box-shadow: 0 8px 32px rgba(44,62,80,0.2);
-    min-width: 260px;
-    max-width: 340px;
-    width: 100%;
-    animation: fadeInDown 0.4s;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-#adminModal h2 {
-    margin-bottom: 1.5rem;
-    color: var(--primary-color);
-    text-align: center;
-}
-#adminModal .form-group {
-    margin-bottom: 1.2rem;
-}
-#adminModal label {
-    display: block;
-    margin-bottom: 0.4rem;
-    color: var(--secondary-color);
-    font-weight: 500;
-}
-#adminModal input[type="text"],
-#adminModal input[type="password"] {
-    width: 100%;
-    padding: 0.6rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    outline: none;
-    transition: border 0.2s;
-}
-#adminModal input[type="text"]:focus,
-#adminModal input[type="password"]:focus {
-    border: 1.5px solid var(--primary-color);
-}
-#adminModal .submit-btn {
-    width: 100%;
-    margin-top: 0.5rem;
-}
-#adminModal .close-modal {
-    position: absolute;
-    top: 1rem;
-    right: 1.2rem;
-    font-size: 1.5rem;
-    color: var(--accent-color);
-    cursor: pointer;
-    font-weight: bold;
-    transition: color 0.2s;
-}
-#adminModal .close-modal:hover {
-    color: var(--primary-color);
-}
-@media (max-width: 480px) {
-    #adminModal .modal-content {
-        padding: 1rem 0.5rem;
-        min-width: 90vw;
-        max-width: 95vw;
-    }
-}
