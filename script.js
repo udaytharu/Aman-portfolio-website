@@ -1,172 +1,154 @@
-// Theme Toggle (Day/Night)
-const themeToggleBtn = document.getElementById('theme-toggle');
-const htmlElement = document.documentElement;
-const themeIcon = themeToggleBtn.querySelector('i');
-
-// Check local storage for saved theme
-const savedTheme = localStorage.getItem('theme') || 'light';
-htmlElement.setAttribute('data-theme', savedTheme);
-updateThemeIcon(savedTheme);
-
-themeToggleBtn.addEventListener('click', () => {
-    const currentTheme = htmlElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+document.addEventListener('DOMContentLoaded', () => {
     
-    htmlElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-});
+    // --- 1. THREE.JS TOPOGRAPHICAL BACKGROUND ---
+    const canvas = document.querySelector('#webgl-canvas');
+    const scene = new THREE.Scene();
+    // Fog to fade out edges
+    scene.fog = new THREE.FogExp2(0x050508, 0.002);
 
-function updateThemeIcon(theme) {
-    if (theme === 'dark') {
-        themeIcon.className = 'fas fa-sun';
-    } else {
-        themeIcon.className = 'fas fa-moon';
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Create a plane and distort vertices to look like topography
+    const geometry = new THREE.PlaneGeometry(300, 200, 60, 60);
+    const material = new THREE.MeshBasicMaterial({ 
+        color: 0x00f3ff, 
+        wireframe: true,
+        transparent: true,
+        opacity: 0.15
+    });
+    
+    const plane = new THREE.Mesh(geometry, material);
+    
+    // Displace vertices to create terrain
+    const positions = plane.geometry.attributes.position;
+    for(let i = 0; i < positions.count; i++) {
+        const x = positions.getX(i);
+        const y = positions.getY(i);
+        // Math-based pseudo-random terrain
+        const z = Math.sin(x * 0.05) * Math.cos(y * 0.05) * 15 + Math.sin(x * 0.1) * 5;
+        positions.setZ(i, z);
     }
-}
+    plane.geometry.computeVertexNormals();
+    
+    plane.rotation.x = -Math.PI / 2 + 0.2; // Tilt it flat
+    plane.position.y = -30;
+    plane.position.z = -50;
+    scene.add(plane);
 
-// Initialize EmailJS
-(function() {
-    // Make sure your User ID is correct
-    emailjs.init("pMTBWtAGhjd0az49O"); 
-})();
+    camera.position.z = 30;
+    camera.position.y = 10;
 
-// Preloader
-window.addEventListener('load', function() {
-    const preloader = document.querySelector('.preloader');
-    preloader.classList.add('fade-out');
-    setTimeout(() => {
-        preloader.style.display = 'none';
-    }, 500);
-});
+    // Mouse interaction setup
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    const windowHalfX = window.innerWidth / 2;
+    const windowHalfY = window.innerHeight / 2;
 
-// Mobile Menu Toggle
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
-});
-
-// Close mobile menu when clicking a link
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
+    document.addEventListener('mousemove', (event) => {
+        mouseX = (event.clientX - windowHalfX) * 0.05;
+        mouseY = (event.clientY - windowHalfY) * 0.05;
     });
-});
 
-// Sticky Header
-window.addEventListener('scroll', function() {
-    const header = document.querySelector('header');
-    header.classList.toggle('scrolled', window.scrollY > 0);
-});
+    // Animation Loop
+    const clock = new THREE.Clock();
+    function animate() {
+        requestAnimationFrame(animate);
+        const elapsedTime = clock.getElapsedTime();
 
-// Back to Top Button
-const backToTopBtn = document.querySelector('.back-to-top');
+        // Rotate plane slowly
+        plane.rotation.z = elapsedTime * 0.02;
 
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        backToTopBtn.classList.add('active');
-    } else {
-        backToTopBtn.classList.remove('active');
+        // Move vertices slightly like a wave over time
+        const positions = plane.geometry.attributes.position;
+        for(let i = 0; i < positions.count; i++) {
+            const x = positions.getX(i);
+            const y = positions.getY(i);
+            const z = Math.sin(x * 0.05 + elapsedTime * 0.5) * Math.cos(y * 0.05 + elapsedTime * 0.5) * 10;
+            positions.setZ(i, z);
+        }
+        plane.geometry.attributes.position.needsUpdate = true;
+
+        // Ease camera towards mouse position
+        targetX = mouseX * 0.5;
+        targetY = mouseY * 0.5;
+        camera.position.x += (targetX - camera.position.x) * 0.02;
+        camera.position.y += (-targetY - camera.position.y + 10) * 0.02;
+        camera.lookAt(scene.position);
+
+        renderer.render(scene, camera);
     }
-});
+    animate();
 
-backToTopBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+    // Resize handler
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
     });
-});
 
-// Smooth Scrolling for Anchor Links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+
+    // --- 2. GSAP SCROLL ANIMATIONS ---
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Generic reveal up
+    gsap.utils.toArray('.gs-reveal').forEach(function(elem) {
+        gsap.fromTo(elem, 
+            { y: 50, opacity: 0 }, 
+            {
+                y: 0, 
+                opacity: 1, 
+                duration: 1, 
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: elem,
+                    start: "top 85%", 
+                }
+            }
+        );
+    });
+
+    // Reveal from right
+    gsap.utils.toArray('.gs-reveal-right').forEach(function(elem) {
+        gsap.fromTo(elem, 
+            { x: 50, opacity: 0 }, 
+            {
+                x: 0, 
+                opacity: 1, 
+                duration: 1, 
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: elem,
+                    start: "top 85%",
+                }
+            }
+        );
+    });
+
+
+    // --- 3. FORM HANDLER (Mock) ---
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        const btn = form.querySelector('button');
+        const originalText = btn.innerHTML;
+        
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Transmitting...';
+        btn.classList.add('bg-neonCyan', 'text-darkBase');
+        
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-check"></i> Sent Successfully';
+            form.reset();
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.remove('bg-neonCyan', 'text-darkBase');
+            }, 3000);
+        }, 1500);
     });
+    
 });
-
-// Advanced Scroll Animations (Intersection Observer)
-const observerOptions = {
-    threshold: 0.15,
-    rootMargin: "0px 0px -50px 0px"
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-            // Unobserve after animating once for performance
-            observer.unobserve(entry.target); 
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('.project-card, .about-img, .about-text, .contact-info, .contact-form').forEach(el => {
-    el.style.opacity = '0'; // Hide initially
-    el.style.transform = 'translateY(40px)';
-    el.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-    observer.observe(el);
-});
-
-// Helper class for observer
-document.head.insertAdjacentHTML('beforeend', `<style>
-    .animate { opacity: 1 !important; transform: translateY(0) !important; }
-</style>`);
-
-// Form Submission with EmailJS
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    const submitBtn = contactForm.querySelector('.submit-btn');
-    let isFormSubmitting = false;
-
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (isFormSubmitting) return; 
-        isFormSubmitting = true;
-
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
-
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-
-        if (typeof emailjs === 'undefined' || typeof emailjs.send !== 'function') {
-            alert('Error: Email service is unavailable. Please check your configuration.');
-            resetFormState();
-            return;
-        }
-
-        const templateParams = {
-            from_name: name,
-            from_email: email,
-            message: message,
-            to_name: 'Aman Tharu',
-            to_email: 'er.amantharu@gmail.com'
-        };
-
-        emailjs.send('service_ufihhgp', 'template_o41n40u', templateParams)
-            .then(function(response) {
-                alert('Success! Thank you for reaching out.');
-                contactForm.reset();
-            }, function(error) {
-                alert('Error sending message. Please try again later.');
-            })
-            .finally(function() {
-                resetFormState();
-            });
-            
-        function resetFormState() {
-            isFormSubmitting = false;
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
-        }
-    });
-}
