@@ -1,4 +1,4 @@
-// Theme Toggle (Day/Night Mode)
+// Theme Toggle (Day/Night)
 const themeToggleBtn = document.getElementById('theme-toggle');
 const htmlElement = document.documentElement;
 const themeIcon = themeToggleBtn.querySelector('i');
