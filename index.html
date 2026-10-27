@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <!-- Add EmailJS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
+
 <body>
     <!-- Preloader -->
     <div class="preloader">
@@ -26,6 +28,12 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <!-- Theme Toggle Button -->
+                <li>
+                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
             </ul>
             <div class="hamburger">
                 <div></div>
@@ -37,65 +45,78 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Hi, I'm <span>Aman Tharu</span></h1>
-            <p>Civil Engineering Student of Pashchimanchal Campus (WRC) , Pokhara Lamachaur</p>
-            <div class="hero-btns">
-                <a href="#projects" class="btn">View My Work</a>
-                <a href="#contact" class="btn btn-outline">Contact Me</a>
+        <!-- Animated floating shapes for background -->
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+
+        <div class="container hero-layout">
+            <div class="hero-content">
+                <h1 class="slide-in">Hi, I'm <span>Aman Tharu</span></h1>
+                <p class="fade-in-up">Civil Engineering Student of Pashchimanchal Campus (WRC), Pokhara Kaski</p>
+                <div class="hero-btns fade-in-up">
+                    <a href="#projects" class="btn">View My Work</a>
+                    <a href="#contact" class="btn btn-outline">Contact Me</a>
+                </div>
+                <div class="social-icons fade-in-up">
+                    <a href="https://www.facebook.com/aman.nab.01"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/__aman__tharu__/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@amantharuwrc"><i class="fab fa-youtube"></i></a>
+                </div>
             </div>
-        </div>
-        <div class="social-icons">
-            <a href="https://www.facebook.com/aman.nab.01"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/__aman__tharu__/"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@atharu_1?_t=ZS-8uyw9rmlsXK&_r=1"><i class="fab fa-tiktok"></i></a>
+            <!-- Empty column for layout balance on desktop -->
+            <div class="hero-graphic">
+                <div class="floating-icon"><i class="fas fa-drafting-compass"></i></div>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="section" id="about">
+    <section class="section alt-bg" id="about">
         <div class="container">
             <div class="section-title">
                 <h2>About Me</h2>
             </div>
             <div class="about-content">
                 <div class="about-img">
-                    <img src="main.jpg" alt="Aman Tharu">
+                    <img src="" alt="Aman Tharu"
+                        onerror="this.src='https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80'">
                 </div>
                 <div class="about-text">
-                    <h3>Civil Engineering Student <span>@ Third Year</span></h3>
-                    <p>Hello! I'm Aman Tharu, a civil engineering student currently in Sixth semester (Third Year) in IOE Pashchimanchal Campus, Lamachaur Pokhara.</p>
+                    <h3>Civil Engineering Student <span>@ Fourth Year</span></h3>
+                    <p>Hello! I'm Aman Tharu, a civil engineering student currently in Eight semester (Last Year) in
+                        IOE Pashchimanchal Campus, Lamachaur Pokhara.</p>
                     <div class="skills">
-                        <h4>Topics :</h4>
-                            <div class="skill-card">
-                                <a href="/topics_pages/autocad.html" style="text-decoration: none; font-size: 1rem; font-weight: 700;"><p>AutoCAD</p></a>
-                            </div>
-                            <div class="skill-card">
-                                <a href="/topics_pages/nbc.html" style="text-decoration: none; font-size: 1rem; font-weight: 700;"><p>NBC</p></a>
-                            </div>
-                            <div class="skill-card">
-                                <a href="/topics_pages/sketchup.html" style="text-decoration: none; font-size: 1rem; font-weight: 700;"><p>SketchUp</p></a>
-                            </div>
-                            <div class="skill-card">
-                                <a href="/topics_pages/revit.html" style="text-decoration: none; font-size: 1rem; font-weight: 700;"><p>Revit</p></a>
-                            </div>
-                            <div class="skill-card">
-                                <a href="/topics_pages/sw_dmt.html" style="text-decoration: none; font-size: 1rem; font-weight: 700;"><p>SW-DMT</p></a>
-                            </div>
-                            <div class="skill-card">
-                                <a href="/topics_pages/civil3d.html" style="text-decoration: none; font-size: 1rem; font-weight: 700;"><p>Civil 3D</p></a>
-                            </div>
-                            <div class="skill-card">
-                                <a href="/topics_pages/survey.html" style="text-decoration: none; font-size: 1rem; font-weight: 700;"><p>Survey</p></a>
-                            </div>
-                            <div class="skill-card">
-                                <a href="/topics_pages/etabs.html" style="text-decoration: none; font-size: 1rem; font-weight: 700;"><p>ETABS</p></a>
-                            </div>
-<div class="skill-card">
-                                <a href="/topics_pages/ioe.html" style="text-decoration: none; font-size: 1rem; font-weight: 700;"><p>IOE CheatSheet</p></a>
-                            </div>
-                    </div>   
-            </div>               
+                        <h4>Materials :</h4>
+                        <div class="skill-card"><a href="/topics_pages/autocad.html">
+                                <p>AutoCAD</p>
+                            </a></div>
+                        <div class="skill-card"><a href="/topics_pages/nbc.html">
+                                <p>NBC</p>
+                            </a></div>
+                        <div class="skill-card"><a href="/topics_pages/sketchup.html">
+                                <p>SketchUp</p>
+                            </a></div>
+                        <div class="skill-card"><a href="/topics_pages/revit.html">
+                                <p>Revit</p>
+                            </a></div>
+                        <div class="skill-card"><a href="/topics_pages/sw_dmt.html">
+                                <p>SW-DMT</p>
+                            </a></div>
+                        <div class="skill-card"><a href="/topics_pages/civil3d.html">
+                                <p>Civil 3D</p>
+                            </a></div>
+                        <div class="skill-card"><a href="/topics_pages/survey.html">
+                                <p>Survey</p>
+                            </a></div>
+                        <div class="skill-card"><a href="/topics_pages/etabs.html">
+                                <p>ETABS</p>
+                            </a></div>
+                        <div class="skill-card"><a href="/topics_pages/ioe.html">
+                                <p>IOE CheatSheet</p>
+                            </a></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -106,30 +127,39 @@
                 <h2>My Projects</h2>
             </div>
             <div class="projects-container">
+                <!-- Project 1 -->
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="AUTOCAD-TRAINNING.jpg" alt="Residential Building Design">
+                        <img src="AUTOCAD-TRAINNING.jpg" alt="Residential Building Design"
+                            onerror="this.src='https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80'">
                     </div>
                     <div class="project-info">
                         <h3>Municipal Drawing</h3>
-                        <p>A complete AutoCAD design for a modern two-story residential building with detailed floor plans and elevations.</p>
+                        <p>A complete AutoCAD design for a modern two-story residential building with detailed floor
+                            plans and elevations.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">AutoCAD</span>
+                            <span class="project-tag">Drafting</span>
+                        </div>
                         <div class="project-links">
                             <a href="/autocad.pdf"><i class="fas fa-eye"></i> View</a>
-                            <a href="/topics_pages/dwg.html"><i class="fas fa-download"></i>Download DWG Resources</a>
+                            <a href="/topics_pages/dwg.html"><i class="fas fa-download"></i> Resources</a>
                         </div>
                     </div>
                 </div>
+                <!-- Project 2 -->
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="sketchup.jpg" alt="Warehouse 3D Model">
+                        <img src="sketchup.jpg" alt="Warehouse 3D Model"
+                            onerror="this.src='https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80'">
                     </div>
                     <div class="project-info">
-                        <h3>SketchUp</h3>
-                        <p>A SketchUp model of an industrial warehouse with detailed interior and exterior features, including loading docks.</p>
+                        <h3>SketchUp Warehouse</h3>
+                        <p>A SketchUp model of an industrial warehouse with detailed interior and exterior features,
+                            including loading docks.</p>
                         <div class="project-tags">
                             <span class="project-tag">SketchUp</span>
                             <span class="project-tag">3D Modeling</span>
-                            <span class="project-tag">Industrial</span>
                         </div>
                         <div class="project-links">
                             <a href="#"><i class="fas fa-eye"></i> View</a>
@@ -137,21 +167,23 @@
                         </div>
                     </div>
                 </div>
+                <!-- Project 3 -->
                 <div class="project-card">
                     <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Small Bridge Design">
+                        <img src="https://i.pinimg.com/originals/9d/de/4f/9dde4fbf036f65cd2d2ece09f828c058.jpg"
+                            alt="Revit ">
                     </div>
                     <div class="project-info">
-                        <h3>Small Bridge Design</h3>
-                        <p>A conceptual design for a pedestrian bridge combining AutoCAD technical drawings and SketchUp 3D visualization.</p>
+                        <h3>Fourth year Project</h3>
+                        <p>fourth year project of shopping-mall design is running at present. I am working to design the shopping mall To learn Building information modelling using the software called the Autodesk Revit.
+                         </p>
                         <div class="project-tags">
-                            <span class="project-tag">AutoCAD</span>
-                            <span class="project-tag">SketchUp</span>
-                            <span class="project-tag">Bridge</span>
+                            <span class="project-tag">Revit</span>
+                            <span class="project-tag">BIM</span>
                         </div>
                         <div class="project-links">
                             <a href="#"><i class="fas fa-eye"></i> View</a>
-                            <a href="#"><i class="fas fa-code"></i> Details</a>
+                            <a href="https://amantharu.com.np"><i class="fas fa-code"></i> Revit Videos</a>
                         </div>
                     </div>
                 </div>
@@ -160,7 +192,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="section contact" id="contact">
+    <section class="section alt-bg contact" id="contact">
         <div class="container">
             <div class="section-title">
                 <h2>Contact Me</h2>
@@ -168,13 +200,14 @@
             <div class="contact-container">
                 <div class="contact-info">
                     <h3>Let's Connect</h3>
-                    <p>I'm always open to discussing civil engineering projects, design collaborations, or learning opportunities. Feel free to reach out to me through any of these channels.</p>
+                    <p>I'm always open to discussing civil engineering projects, design collaborations, or learning
+                        opportunities.</p>
                     <div class="contact-details">
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
                             <div class="contact-item-text">
                                 <h4>Email</h4>
-                                <a href="/cdn-cgi/l/email-protection#350471b5458545b415d5447401b565a58">er.amantharu@gmail.com</a>
+                                <a href="mailto:er.amantharu@gmail.com">er.amantharu@gmail.com</a>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -207,17 +240,9 @@
                             <label for="message">Message</label>
                             <textarea id="message" class="form-control" required></textarea>
                         </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
+                        <button type="submit" class="submit-btn">Send Message <i
+                                class="fas fa-paper-plane"></i></button>
                     </form>
-                    <!-- Video Ad Container -->
-                    <!-- <div class="video-ad-container" id="videoAd" style="display: none;">
-                        <video class="video-ad" autoplay muted loop playsinline id="adVideo">
-                            <source src="videos.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <button class="close-button" onclick="closeVideo()">×</button>
-                        <button class="mute-button" onclick="toggleMute()" id="muteButton">🔇</button>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -226,9 +251,9 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">         
-                <p class="copyright">Thanks for visiting website.</p>
-                <p class="copyright">© 2025 Aman Tharu, Created by <a href="https://www.udayrajchaudhary.com.np/"> Uday Tharu</a> All Rights Reserved</p>
+            <div class="footer-content">
+                <p class="copyright">Thanks for visiting the website.</p>
+                <p class="copyright">© 2025 Aman Tharu. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -239,5 +264,6 @@
     </a>
 
     <script src="script.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'934297e7d9a244ea',t:'MTc0NTI5ODQwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
+
 </html>
