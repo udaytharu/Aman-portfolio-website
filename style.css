@@ -4,7 +4,7 @@ body {
     overflow-x: hidden;
 }
 
-/* 3D Canvas Background */
+/* 3D Canvas Backgrounnnd*/
 #webgl-canvas {
     position: fixed;
     top: 0;
