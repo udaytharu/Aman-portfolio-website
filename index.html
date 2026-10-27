@@ -1,119 +1,143 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
-
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aman Tharu | Portfolio Website</title>
+    <title>Aman Tharu | 3D Portfolio</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- External CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- Add EmailJS SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        darkBase: '#050508',
+                        darkCard: '#0f1016',
+                        neonCyan: '#00f3ff',
+                        neonBlue: '#0066ff',
+                    },
+                    boxShadow: {
+                        'neon': '0 0 20px rgba(0, 243, 255, 0.3)',
+                        'neon-strong': '0 0 30px rgba(0, 243, 255, 0.6)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
+<body class="antialiased selection:bg-neonCyan selection:text-darkBase">
 
-<body>
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="loader"></div>
-    </div>
+    <!-- 3D Background Canvas -->
+    <canvas id="webgl-canvas"></canvas>
 
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <a href="#" class="logo">
-                <i class="fas fa-user-edit"></i>Aman<span>Tharu</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <!-- Theme Toggle Button -->
-                <li>
-                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+    <!-- Floating Desktop Navigation -->
+    <nav class="floating-nav glass shadow-glass flex items-center justify-between gap-6 md:gap-12">
+        <a href="#home" class="text-xl font-display font-bold text-white tracking-wider">
+            A<span class="text-neonCyan">T</span>.
+        </a>
+        <div class="flex items-center gap-6 md:gap-8">
+            <a href="#home" class="text-gray-300 hover:text-neonCyan transition flex items-center gap-2 text-sm uppercase tracking-widest"><i class="fas fa-home"></i><span class="nav-item-text">Home</span></a>
+            <a href="#about" class="text-gray-300 hover:text-neonCyan transition flex items-center gap-2 text-sm uppercase tracking-widest"><i class="fas fa-user"></i><span class="nav-item-text">About</span></a>
+            <a href="#projects" class="text-gray-300 hover:text-neonCyan transition flex items-center gap-2 text-sm uppercase tracking-widest"><i class="fas fa-project-diagram"></i><span class="nav-item-text">Work</span></a>
+            <a href="#contact" class="text-gray-300 hover:text-neonCyan transition flex items-center gap-2 text-sm uppercase tracking-widest"><i class="fas fa-envelope"></i><span class="nav-item-text">Contact</span></a>
         </div>
-    </header>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <!-- Animated floating shapes for background -->
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-
-        <div class="container hero-layout">
-            <div class="hero-content">
-                <h1 class="slide-in">Hi, I'm <span>Aman Tharu</span></h1>
-                <p class="fade-in-up">Civil Engineering Student of Pashchimanchal Campus (WRC), Pokhara Kaski</p>
-                <div class="hero-btns fade-in-up">
-                    <a href="#projects" class="btn">View My Work</a>
-                    <a href="#contact" class="btn btn-outline">Contact Me</a>
-                </div>
-                <div class="social-icons fade-in-up">
-                    <a href="https://www.facebook.com/aman.nab.01"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/__aman__tharu__/"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/@amantharuwrc"><i class="fab fa-youtube"></i></a>
+    <section id="home" class="min-h-screen flex items-center justify-center relative pt-20 px-6">
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            <!-- Asymmetric Text Content -->
+            <div class="lg:col-span-8 space-y-6 gs-reveal">
+                <p class="text-neonCyan font-mono tracking-widest uppercase text-sm mb-2 drop-shadow-md">Welcome to my space</p>
+                <h1 class="text-5xl md:text-7xl font-display font-bold leading-tight">
+                    Hi, I'm <br />
+                    <span class="text-gradient">Aman Tharu</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 font-light max-w-2xl border-l-4 border-neonBlue pl-4">
+                    Civil Engineering Student of Pashchimanchal Campus (WRC), Pokhara Kaski.
+                </p>
+                
+                <div class="pt-8 flex flex-wrap gap-4 items-center">
+                    <a href="#projects" class="px-8 py-4 bg-neonBlue/10 border border-neonCyan text-neonCyan rounded-none hover:bg-neonCyan hover:text-darkBase transition-all duration-300 font-bold uppercase tracking-widest text-sm shadow-neon">
+                        Explore My Work
+                    </a>
+                    <div class="flex gap-4 ml-4">
+                        <a href="https://www.facebook.com/aman.nab.01" target="_blank" class="w-12 h-12 rounded-full glass flex items-center justify-center hover:scale-110 hover:border-neonCyan transition-all text-gray-300 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/__aman__tharu__/" target="_blank" class="w-12 h-12 rounded-full glass flex items-center justify-center hover:scale-110 hover:border-neonCyan transition-all text-gray-300 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@amantharuwrc" target="_blank" class="w-12 h-12 rounded-full glass flex items-center justify-center hover:scale-110 hover:border-neonCyan transition-all text-gray-300 hover:text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
             </div>
-            <!-- Empty column for layout balance on desktop -->
-            <div class="hero-graphic">
-                <div class="floating-icon"><i class="fas fa-drafting-compass"></i></div>
+            
+            <!-- Abstract decorative element right side -->
+            <div class="lg:col-span-4 hidden lg:flex justify-end gs-reveal-right">
+                <div class="relative w-64 h-64 glass-panel rounded-full flex items-center justify-center border-t border-l border-neonCyan/30 shadow-[0_0_50px_rgba(0,102,255,0.3)] animate-[spin_20s_linear_infinite]">
+                    <div class="absolute inset-4 rounded-full border border-dashed border-neonCyan/50 animate-[spin_15s_linear_infinite_reverse]"></div>
+                    <i class="fas fa-drafting-compass text-6xl text-neonCyan drop-shadow-[0_0_10px_rgba(0,243,255,0.8)]" style="animation: spin 20s linear infinite reverse;"></i>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="section alt-bg" id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Me</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="" alt="Aman Tharu"
-                        onerror="this.src='https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80'">
+    <!-- About & Skills Section -->
+    <section id="about" class="py-24 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Asymmetric overlapping image card -->
+                <div class="relative gs-reveal tilt-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-neonBlue to-neonCyan opacity-20 blur-2xl rounded-2xl transform translate-x-4 translate-y-4"></div>
+                    <div class="glass-panel p-2 rounded-2xl relative z-10 border border-neonCyan/20 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80" alt="Civil Engineering" class="rounded-xl w-full h-[400px] object-cover mix-blend-luminosity hover:mix-blend-normal transition duration-700">
+                        <div class="absolute bottom-6 left-6 tilt-inner glass px-4 py-2 rounded text-neonCyan font-mono text-sm border-l-2 border-neonBlue">
+                            Based in Nepal
+                        </div>
+                    </div>
                 </div>
-                <div class="about-text">
-                    <h3>Civil Engineering Student <span>@ Fourth Year</span></h3>
-                    <p>Hello! I'm Aman Tharu, a civil engineering student currently in Eight semester (Last Year) in
-                        IOE Pashchimanchal Campus, Lamachaur Pokhara.</p>
-                    <div class="skills">
-                        <h4>Materials :</h4>
-                        <div class="skill-card"><a href="/topics_pages/autocad.html">
-                                <p>AutoCAD</p>
-                            </a></div>
-                        <div class="skill-card"><a href="/topics_pages/nbc.html">
-                                <p>NBC</p>
-                            </a></div>
-                        <div class="skill-card"><a href="/topics_pages/sketchup.html">
-                                <p>SketchUp</p>
-                            </a></div>
-                        <div class="skill-card"><a href="/topics_pages/revit.html">
-                                <p>Revit</p>
-                            </a></div>
-                        <div class="skill-card"><a href="/topics_pages/sw_dmt.html">
-                                <p>SW-DMT</p>
-                            </a></div>
-                        <div class="skill-card"><a href="/topics_pages/civil3d.html">
-                                <p>Civil 3D</p>
-                            </a></div>
-                        <div class="skill-card"><a href="/topics_pages/survey.html">
-                                <p>Survey</p>
-                            </a></div>
-                        <div class="skill-card"><a href="/topics_pages/etabs.html">
-                                <p>ETABS</p>
-                            </a></div>
-                        <div class="skill-card"><a href="/topics_pages/ioe.html">
-                                <p>IOE CheatSheet</p>
-                            </a></div>
+
+                <!-- Text & Skills Container -->
+                <div class="space-y-8 gs-reveal-right">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-display font-bold mb-4">About <span class="text-gradient">Me</span></h2>
+                        <h3 class="text-xl text-gray-300 font-light border-l-2 border-neonCyan pl-4 py-1">
+                            Civil Engineering Student @ 8th Semester (Final Year)
+                        </h3>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Hello! I'm Aman Tharu, a civil engineering student currently in my final year at IOE Pashchimanchal Campus, Lamachaur Pokhara. I am interested in bug bounty hunting. Total bounty received (till date):5500$
+                    </p>
+                    
+                    <div class="pt-4">
+                        <h4 class="text-neonCyan font-mono uppercase tracking-widest text-sm mb-6 flex items-center gap-4">
+                            <span class="h-px bg-neonCyan/30 flex-grow"></span>
+                            Engineering Arsenal
+                            <span class="h-px bg-neonCyan/30 flex-grow"></span>
+                        </h4>
+                        
+                        <!-- Floating 3D Badges for skills - CHANGED TO LINKS -->
+                        <div class="flex flex-wrap gap-3">
+                            <a href="autocad.html" target="_blank" rel="noopener noreferrer" class="px-4 py-2 glass rounded text-sm text-gray-200 hover:text-neonCyan hover:border-neonCyan transition duration-300 shadow-sm hover:shadow-neon inline-block" data-tilt data-tilt-scale="1.1">AutoCAD</a>
+                            <a href="nbc.html" target="_blank" rel="noopener noreferrer" class="px-4 py-2 glass rounded text-sm text-gray-200 hover:text-neonCyan hover:border-neonCyan transition duration-300 shadow-sm hover:shadow-neon inline-block" data-tilt data-tilt-scale="1.1">NBC</a>
+                            <a href="sketchup.html" target="_blank" rel="noopener noreferrer" class="px-4 py-2 glass rounded text-sm text-gray-200 hover:text-neonCyan hover:border-neonCyan transition duration-300 shadow-sm hover:shadow-neon inline-block" data-tilt data-tilt-scale="1.1">SketchUp</a>
+                            <a href="revit.html" target="_blank" rel="noopener noreferrer" class="px-4 py-2 glass rounded text-sm text-gray-200 hover:text-neonCyan hover:border-neonCyan transition duration-300 shadow-sm hover:shadow-neon inline-block" data-tilt data-tilt-scale="1.1">Revit</a>
+                            <a href="sw-dmt.html" target="_blank" rel="noopener noreferrer" class="px-4 py-2 glass rounded text-sm text-gray-200 hover:text-neonCyan hover:border-neonCyan transition duration-300 shadow-sm hover:shadow-neon inline-block" data-tilt data-tilt-scale="1.1">SW-DMT</a>
+                            <a href="civil-3d.html" target="_blank" rel="noopener noreferrer" class="px-4 py-2 glass rounded text-sm text-gray-200 hover:text-neonCyan hover:border-neonCyan transition duration-300 shadow-sm hover:shadow-neon inline-block" data-tilt data-tilt-scale="1.1">Civil 3D</a>
+                            <a href="survey.html" target="_blank" rel="noopener noreferrer" class="px-4 py-2 glass rounded text-sm text-gray-200 hover:text-neonCyan hover:border-neonCyan transition duration-300 shadow-sm hover:shadow-neon inline-block" data-tilt data-tilt-scale="1.1">Survey</a>
+                            <a href="etabs.html" target="_blank" rel="noopener noreferrer" class="px-4 py-2 glass rounded text-sm text-gray-200 hover:text-neonCyan hover:border-neonCyan transition duration-300 shadow-sm hover:shadow-neon inline-block" data-tilt data-tilt-scale="1.1">ETABS</a>
+                            <a href="ioe-cheatsheet.html" target="_blank" rel="noopener noreferrer" class="px-4 py-2 glass rounded text-sm text-gray-200 hover:text-neonCyan hover:border-neonCyan transition duration-300 shadow-sm hover:shadow-neon inline-block" data-tilt data-tilt-scale="1.1">IOE CheatSheet</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,127 +145,146 @@
     </section>
 
     <!-- Projects Section -->
-    <section class="section" id="projects">
-        <div class="container">
-            <div class="section-title">
-                <h2>My Projects</h2>
+    <section id="projects" class="py-24 px-6 relative z-10 bg-gradient-to-b from-transparent via-[#0a0a0f] to-transparent">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 gs-reveal">
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-4">Featured <span class="text-gradient">Projects</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Practical Project Done by me </p>
             </div>
-            <div class="projects-container">
+
+            <!-- Asymmetric Grid for Projects -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
                 <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="AUTOCAD-TRAINNING.jpg" alt="Residential Building Design"
-                            onerror="this.src='https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80'">
+                <div class="glass-panel rounded-xl p-4 tilt-card group gs-reveal" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-perspective="1000">
+                    <div class="relative h-64 overflow-hidden rounded-lg mb-6 border border-white/5">
+                        <div class="absolute inset-0 bg-neonBlue/20 group-hover:bg-transparent transition duration-500 z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80" alt="Municipal Drawing" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 tilt-inner">
                     </div>
-                    <div class="project-info">
-                        <h3>Municipal Drawing</h3>
-                        <p>A complete AutoCAD design for a modern two-story residential building with detailed floor
-                            plans and elevations.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">AutoCAD</span>
-                            <span class="project-tag">Drafting</span>
+                    <div class="px-2 tilt-inner">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-neonCyan bg-neonCyan/10 px-2 py-1 rounded">AutoCAD</span>
+                            <span class="text-xs font-mono text-neonBlue bg-neonBlue/10 px-2 py-1 rounded">Drafting</span>
                         </div>
-                        <div class="project-links">
-                            <a href="/autocad.pdf"><i class="fas fa-eye"></i> View</a>
-                            <a href="/topics_pages/dwg.html"><i class="fas fa-download"></i> Resources</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="sketchup.jpg" alt="Warehouse 3D Model"
-                            onerror="this.src='https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80'">
-                    </div>
-                    <div class="project-info">
-                        <h3>SketchUp Warehouse</h3>
-                        <p>A SketchUp model of an industrial warehouse with detailed interior and exterior features,
-                            including loading docks.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">SketchUp</span>
-                            <span class="project-tag">3D Modeling</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#"><i class="fas fa-eye"></i> View</a>
-                            <a href="#"><i class="fas fa-code"></i> Details</a>
+                        <h3 class="text-2xl font-bold mb-2 text-white group-hover:text-neonCyan transition">Municipal Drawing</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">A complete AutoCAD design for a modern two-story residential building with detailed floor plans and elevations.</p>
+                        <div class="flex gap-4 border-t border-white/10 pt-4 mt-auto">
+                            <a href="#" class="text-sm text-gray-300 hover:text-neonCyan flex items-center gap-2 transition"><i class="fas fa-eye"></i> View PDF</a>
+                            <a href="#" class="text-sm text-gray-300 hover:text-neonCyan flex items-center gap-2 transition"><i class="fas fa-download"></i> Resources</a>
                         </div>
                     </div>
                 </div>
+
+                <!-- Project 2 (Offset structurally) -->
+                <div class="glass-panel rounded-xl p-4 tilt-card group gs-reveal lg:translate-y-12" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-perspective="1000">
+                    <div class="relative h-64 overflow-hidden rounded-lg mb-6 border border-white/5">
+                        <div class="absolute inset-0 bg-neonCyan/20 group-hover:bg-transparent transition duration-500 z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80" alt="SketchUp Warehouse" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 tilt-inner">
+                    </div>
+                    <div class="px-2 tilt-inner">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-neonCyan bg-neonCyan/10 px-2 py-1 rounded">CIVIL-3D</span>
+                            <span class="text-xs font-mono text-neonBlue bg-neonBlue/10 px-2 py-1 rounded">Road Alignment</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-white group-hover:text-neonCyan transition"> SURVEY WORKS</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">Road alignment, Map plotting, Topographical features plotting
+                        </p>
+                        <div class="flex gap-4 border-t border-white/10 pt-4 mt-auto">
+                            <a href="#" class="text-sm text-gray-300 hover:text-neonCyan flex items-center gap-2 transition"><i class="fas fa-cube"></i> Civil-3d Videos</a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://i.pinimg.com/originals/9d/de/4f/9dde4fbf036f65cd2d2ece09f828c058.jpg"
-                            alt="Revit ">
+                <div class="glass-panel rounded-xl p-4 tilt-card group gs-reveal" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-perspective="1000">
+                    <div class="relative h-64 overflow-hidden rounded-lg mb-6 border border-white/5">
+                        <div class="absolute inset-0 bg-purple-500/20 group-hover:bg-transparent transition duration-500 z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Revit Project" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 tilt-inner">
                     </div>
-                    <div class="project-info">
-                        <h3>Fourth year Project</h3>
-                        <p>fourth year project of shopping-mall design is running at present. I am working to design the shopping mall To learn Building information modelling using the software called the Autodesk Revit.
-                         </p>
-                        <div class="project-tags">
-                            <span class="project-tag">Revit</span>
-                            <span class="project-tag">BIM</span>
+                    <div class="px-2 tilt-inner">
+                        <div class="flex gap-2 mb-3">
+                            <span class="text-xs font-mono text-neonCyan bg-neonCyan/10 px-2 py-1 rounded">Revit</span>
+                            <span class="text-xs font-mono text-neonBlue bg-neonBlue/10 px-2 py-1 rounded">BIM</span>
+                            <span class="text-xs font-mono text-neonCyan bg-neonBlue/10 px-2 py-1 rounded">SHOPPING MALL</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#"><i class="fas fa-eye"></i> View</a>
-                            <a href="https://amantharu.com.np"><i class="fas fa-code"></i> Revit Videos</a>
+                        <h3 class="text-2xl font-bold mb-2 text-white group-hover:text-neonCyan transition">4th Year BIM Project</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">An ongoing shopping-mall design project focusing on Building Information Modeling (BIM) principles using Autodesk Revit.</p>
+                        <div class="flex gap-4 border-t border-white/10 pt-4 mt-auto">
+                            <a href="#" class="text-sm text-gray-300 hover:text-neonCyan flex items-center gap-2 transition"><i class="fas fa-play"></i> Revit Videos</a>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="section alt-bg contact" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contact Me</h2>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Let's Connect</h3>
-                    <p>I'm always open to discussing civil engineering projects, design collaborations, or learning
-                        opportunities.</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div class="contact-item-text">
-                                <h4>Email</h4>
-                                <a href="mailto:er.amantharu@gmail.com">er.amantharu@gmail.com</a>
+    <section id="contact" class="py-24 px-6 relative z-10">
+        <div class="max-w-6xl mx-auto glass-panel rounded-3xl overflow-hidden shadow-neon-strong">
+            <div class="grid grid-cols-1 md:grid-cols-5 h-full">
+                <!-- Contact Info Panel -->
+                <div class="md:col-span-2 bg-gradient-to-br from-darkCard to-[#0a1120] p-10 relative overflow-hidden border-r border-white/10">
+                    <!-- Deco circle -->
+                    <div class="absolute -top-20 -left-20 w-64 h-64 bg-neonBlue rounded-full blur-[100px] opacity-20 pointer-events-none"></div>
+                    
+                    <h3 class="text-3xl font-display font-bold mb-2">Let's <span class="text-neonCyan">Connect</span></h3>
+                    <p class="text-gray-400 text-sm mb-10">Open to civil engineering collaborations, BIM projects, or learning opportunities.</p>
+                    
+                    <div class="space-y-8 relative z-10">
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-full glass flex items-center justify-center text-neonCyan group-hover:scale-110 transition shrink-0 border border-neonCyan/20 group-hover:border-neonCyan">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm text-gray-400 uppercase tracking-widest font-mono mb-1">Email</h4>
+                                <a href="mailto:er.amantharu@gmail.com" class="text-white hover:text-neonCyan transition break-all">er.amantharu@gmail.com</a>
                             </div>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div class="contact-item-text">
-                                <h4>Phone</h4>
-                                <a href="tel:+9779869951939">+977-9869951939</a>
+                        
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-full glass flex items-center justify-center text-neonCyan group-hover:scale-110 transition shrink-0 border border-neonCyan/20 group-hover:border-neonCyan">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm text-gray-400 uppercase tracking-widest font-mono mb-1">Phone</h4>
+                                <a href="tel:+9779869951939" class="text-white hover:text-neonCyan transition">+977-9869951939</a>
                             </div>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div class="contact-item-text">
-                                <h4>Location</h4>
-                                <p>Rajapur-03, Bardiya, Nepal</p>
+                        
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-full glass flex items-center justify-center text-neonCyan group-hover:scale-110 transition shrink-0 border border-neonCyan/20 group-hover:border-neonCyan">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm text-gray-400 uppercase tracking-widest font-mono mb-1">Location</h4>
+                                <p class="text-white">Rajapur-03, Bardiya, Nepal</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" class="form-control" required>
+                
+                <!-- Contact Form -->
+                <div class="md:col-span-3 p-10 bg-darkCard/50 backdrop-blur-sm">
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-xs text-neonCyan font-mono uppercase tracking-widest">Your Name</label>
+                                <input type="text" required class="w-full bg-transparent border-b border-gray-700 py-3 text-white focus:outline-none focus:border-neonCyan transition placeholder-gray-600" placeholder="Aman Tharu">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs text-neonCyan font-mono uppercase tracking-widest">Your Email</label>
+                                <input type="email" required class="w-full bg-transparent border-b border-gray-700 py-3 text-white focus:outline-none focus:border-neonCyan transition placeholder-gray-600" placeholder="aman@example.com">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Your Email</label>
-                            <input type="email" id="email" class="form-control" required>
+                        <div class="space-y-2">
+                            <label class="text-xs text-neonCyan font-mono uppercase tracking-widest">Message</label>
+                            <textarea required rows="4" class="w-full bg-transparent border-b border-gray-700 py-3 text-white focus:outline-none focus:border-neonCyan transition placeholder-gray-600 resize-none" placeholder="Tell me about your project..."></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message <i
-                                class="fas fa-paper-plane"></i></button>
+                        <button type="submit" class="w-full py-4 mt-4 glass border border-neonCyan text-neonCyan hover:bg-neonCyan hover:text-darkBase transition-all duration-300 font-bold uppercase tracking-widest flex justify-center items-center gap-2 group">
+                            <span>Send Transmission</span>
+                            <i class="fas fa-paper-plane group-hover:translate-x-2 group-hover:-translate-y-1 transition-transform"></i>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -249,21 +292,20 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <p class="copyright">Thanks for visiting the website.</p>
-                <p class="copyright">© 2025 Aman Tharu. All Rights Reserved.</p>
-            </div>
-        </div>
+    <footer class="py-8 border-t border-white/5 relative z-10 text-center glass mt-12">
+        <p class="text-gray-500 font-mono text-sm uppercase tracking-widest">© 2026 Aman Tharu. Built with Logic & Code.</p>
     </footer>
 
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top">
-        <i class="fas fa-arrow-up"></i>
-    </a>
+    <!-- Libraries -->
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Vanilla Tilt -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
+    <!-- External Interactions Script -->
     <script src="script.js"></script>
 </body>
-
 </html>
